@@ -33,8 +33,8 @@
             this.restartButton = new System.Windows.Forms.Button();
             this.logRichTextBox = new System.Windows.Forms.RichTextBox();
             this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.fileTextBox = new System.Windows.Forms.TextBox();
             this.argTextBox = new System.Windows.Forms.TextBox();
+            this.fileTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // startButton
@@ -89,23 +89,27 @@
             this.backgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker_ProgressChanged);
             this.backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_RunWorkerCompleted);
             // 
-            // fileTextBox
-            // 
-            this.fileTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.fileTextBox.Location = new System.Drawing.Point(12, 12);
-            this.fileTextBox.Name = "fileTextBox";
-            this.fileTextBox.Size = new System.Drawing.Size(423, 20);
-            this.fileTextBox.TabIndex = 0;
-            // 
             // argTextBox
             // 
             this.argTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.argTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::HappyPanel.Properties.Settings.Default, "argument", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.argTextBox.Location = new System.Drawing.Point(12, 38);
             this.argTextBox.Name = "argTextBox";
             this.argTextBox.Size = new System.Drawing.Size(423, 20);
             this.argTextBox.TabIndex = 1;
+            this.argTextBox.Text = global::HappyPanel.Properties.Settings.Default.argument;
+            // 
+            // fileTextBox
+            // 
+            this.fileTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.fileTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::HappyPanel.Properties.Settings.Default, "filename", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.fileTextBox.Location = new System.Drawing.Point(12, 12);
+            this.fileTextBox.Name = "fileTextBox";
+            this.fileTextBox.Size = new System.Drawing.Size(423, 20);
+            this.fileTextBox.TabIndex = 0;
+            this.fileTextBox.Text = global::HappyPanel.Properties.Settings.Default.filename;
             // 
             // MainForm
             // 
@@ -119,7 +123,7 @@
             this.Controls.Add(this.stopButton);
             this.Controls.Add(this.startButton);
             this.Controls.Add(this.fileTextBox);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MainForm";
             this.ShowInTaskbar = false;
             this.Text = "HappyPanel";

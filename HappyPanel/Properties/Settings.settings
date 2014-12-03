@@ -2,7 +2,10 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="HappyPanel.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="cmd" Type="System.String" Scope="User">
+    <Setting Name="filename" Type="System.String" Scope="User">
+      <Value Profile="(Default)">cmd</Value>
+    </Setting>
+    <Setting Name="argument" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

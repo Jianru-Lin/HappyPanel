@@ -25,13 +25,25 @@ namespace HappyPanel.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string cmd {
+        [global::System.Configuration.DefaultSettingValueAttribute("cmd")]
+        public string filename {
             get {
-                return ((string)(this["cmd"]));
+                return ((string)(this["filename"]));
             }
             set {
-                this["cmd"] = value;
+                this["filename"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string argument {
+            get {
+                return ((string)(this["argument"]));
+            }
+            set {
+                this["argument"] = value;
             }
         }
     }
