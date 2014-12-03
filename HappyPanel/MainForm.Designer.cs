@@ -32,7 +32,6 @@
             this.stopButton = new System.Windows.Forms.Button();
             this.restartButton = new System.Windows.Forms.Button();
             this.logRichTextBox = new System.Windows.Forms.RichTextBox();
-            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.argTextBox = new System.Windows.Forms.TextBox();
             this.fileTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
@@ -82,12 +81,6 @@
             this.logRichTextBox.TabIndex = 4;
             this.logRichTextBox.TabStop = false;
             this.logRichTextBox.Text = "";
-            // 
-            // backgroundWorker
-            // 
-            this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
-            this.backgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker_ProgressChanged);
-            this.backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_RunWorkerCompleted);
             // 
             // argTextBox
             // 
@@ -149,7 +142,6 @@
         private System.Windows.Forms.Button stopButton;
         private System.Windows.Forms.Button restartButton;
         private System.Windows.Forms.RichTextBox logRichTextBox;
-        private System.ComponentModel.BackgroundWorker backgroundWorker;
         private System.Windows.Forms.TextBox argTextBox;
 
     }

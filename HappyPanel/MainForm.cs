@@ -9,25 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using HappyPanel.Properties;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace HappyPanel
 {
     public partial class MainForm : Form
     {
-        Process process;
-        bool restartSignal;
-
-        class Info
-        {
-            public Info(string filename, string argument)
-            {
-                this.filename = filename;
-                this.argument = argument;
-            }
-
-            public string filename;
-            public string argument;
-        }
+        Task task;
+        bool restartSignal = false;
 
         public MainForm()
         {
@@ -73,36 +62,36 @@ namespace HappyPanel
             start();
         }
 
-        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        private void stopButton_Click(object sender, EventArgs e)
         {
-            Info info = e.Argument as Info;
-
-            try
-            {
-                process = Process.Start(info.filename, info.argument);
-                process.WaitForExit();
-            }
-            catch (Exception ex)
-            {
-                e.Result = ex;
-            }
-            finally
-            {
-                process = null;
-            }
+            stop();
         }
 
-        private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void restartButton_Click(object sender, EventArgs e)
         {
-
+            restart();
         }
 
-        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        void start()
         {
-            startButton.Enabled = true;
-            stopButton.Enabled = false;
-            restartButton.Enabled = false;
+            string filename = fileTextBox.Text;
+            if (string.IsNullOrWhiteSpace(filename)) return;
 
+            string argument = argTextBox.Text;
+
+            log("[start] " + filename + " " + argument);
+
+            startButton.Enabled = false;
+            stopButton.Enabled = true;
+            restartButton.Enabled = true;
+
+            task = new Task(filename, argument);
+            task.RunWorkerCompleted += task_RunWorkerCompleted;
+            task.RunWorkerAsync();
+        }
+
+        void task_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
             Exception ex = e.Result as Exception;
             if (ex != null)
             {
@@ -118,47 +107,23 @@ namespace HappyPanel
                 restartSignal = false;
                 start();
             }
-        }
-
-        private void stopButton_Click(object sender, EventArgs e)
-        {
-            stop();
-        }
-
-        private void restartButton_Click(object sender, EventArgs e)
-        {
-            restart();
-        }
-
-        void start()
-        {
-            string file = fileTextBox.Text;
-            if (string.IsNullOrWhiteSpace(file)) return;
-
-            string arg = argTextBox.Text;
-
-            log("[start] " + file + " " + arg);
-
-            startButton.Enabled = false;
-            stopButton.Enabled = true;
-            restartButton.Enabled = true;
-
-            backgroundWorker.RunWorkerAsync(new Info(file, arg));
+            else
+            {
+                startButton.Enabled = true;
+                stopButton.Enabled = false;
+                restartButton.Enabled = false;
+            }
         }
 
         void stop()
         {
             log("[stop]");
 
-            if (process == null) return;
-            try
-            {
-                process.Kill();
-            }
-            catch (Exception ex)
-            {
-                log(ex.Message);
-            }
+            startButton.Enabled = false;
+            stopButton.Enabled = false;
+            restartButton.Enabled = false;
+
+            task.Abort();
         }
 
         void restart()
